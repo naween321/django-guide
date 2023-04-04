@@ -35,8 +35,8 @@
                     {% endif %}
                 </td>
                 <td>
-                <a href="#" class="btn btn-primary">update</a>
-                <a href="#" class="btn btn-danger">delete</a>
+                <a href="{% url 'update' person.id %}" class="btn btn-primary">update</a>
+                <a href="{% url 'delete' person.id %}" class="btn btn-danger">delete</a>
                 </td>
             </tr>
         {% endfor %}
