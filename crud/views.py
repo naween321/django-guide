@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Person
+from .models import Person, FileStorage
 
 
 def home(request):
@@ -43,7 +43,7 @@ def update(request, id):
 
 
 def delete(request, id):
-    if request.method == "POST":
+    if request.method.lower() == "post":
         Person.objects.filter(id=id).delete()
         return redirect("home")
     try:
@@ -52,3 +52,12 @@ def delete(request, id):
         return redirect("home")
     context = {"title": "Delete Person", "person": person}
     return render(request, "crud/delete_person.html", context=context)
+
+
+def file_test(request):
+    if request.method == "POST":
+        file = request.FILES.get("uploaded_file")
+        FileStorage.objects.create(file=file, name=file.name)
+        return redirect('file_test')
+    context = {"infos": FileStorage.objects.all()}
+    return render(request, "crud/file_test.html", context)
