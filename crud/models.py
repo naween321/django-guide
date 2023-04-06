@@ -1,6 +1,13 @@
 from django.db import models
 
 
+class ClassRoom(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
+
 class Person(models.Model):
     name = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
@@ -10,6 +17,16 @@ class Person(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class PersonProfile(models.Model):
+    person = models.OneToOneField(Person, on_delete=models.CASCADE,
+                                  related_name="person_profile")
+    profile_picture = models.FileField(upload_to="profile_picture")
+    bio = models.TextField(max_length=500)
+    address = models.CharField(max_length=20)
+    classroom = models.ForeignKey(ClassRoom, on_delete=models.CASCADE,
+                                  related_name="classroom_people")
 
 
 class FileStorage(models.Model):
