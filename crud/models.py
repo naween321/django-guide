@@ -22,7 +22,7 @@ class Person(models.Model):
 class PersonProfile(models.Model):
     person = models.OneToOneField(Person, on_delete=models.CASCADE,
                                   related_name="person_profile")
-    profile_picture = models.FileField(upload_to="profile_picture")
+    profile_picture = models.FileField(upload_to="profile_picture", null=True, blank=True)
     bio = models.TextField(max_length=500)
     address = models.CharField(max_length=20)
     classroom = models.ForeignKey(ClassRoom, on_delete=models.CASCADE,

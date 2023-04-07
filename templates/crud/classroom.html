@@ -1,0 +1,16 @@
+{% extends "crud/base.html" %}
+
+{% block content %}
+    <h1>
+    {{ title }}
+    </h1>
+    <div style="float: right">
+    <a href="{% url 'add_classroom' %}" class="btn btn-success">Add Classroom</a>
+    <a href="{% url 'home' %}" class="btn btn-primary">Home</a>
+    </div>
+    <div style="margin-top: 50px">
+    {% for classroom in classrooms %}
+        <h4>{{ classroom.name }}</h4>
+    {% endfor %}
+    </div>
+{% endblock %}

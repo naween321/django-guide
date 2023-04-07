@@ -1,0 +1,11 @@
+{% extends "crud/base.html" %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <form method="post" action="{% url 'add_classroom' %}">
+    {% csrf_token %}
+    Name: <input type="text" name="classroom"><br><br>
+    <button type="submit" class="btn btn-success">Add Classroom</button>
+    <a href="{% url 'classroom' %}" class="btn btn-danger">Cancel</a>
+    </form>
+{% endblock %}

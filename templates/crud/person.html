@@ -3,8 +3,11 @@
 {% block content %}
     <div>
         <h1>People</h1>
-        <a href="{% url 'create' %}" class="btn btn-success"
-           style="float: right">Add Person</a>
+        <div style="float: right">
+            <a href="{% url 'create' %}" class="btn btn-success"
+               >Add Person</a>
+            <a href="{% url 'classroom' %}" class="btn btn-primary">Classroom</a>
+        </div>
     </div>
 
     <table class="table" style="margin-top: 100px">
@@ -35,8 +38,9 @@
                     {% endif %}
                 </td>
                 <td>
-                <a href="{% url 'update' person.id %}" class="btn btn-primary">update</a>
-                <a href="{% url 'delete' person.id %}" class="btn btn-danger">delete</a>
+                    <a href="{% url 'update' person.id %}" class="btn btn-primary">update</a>
+                    <a href="{% url 'delete' person.id %}" class="btn btn-danger">delete</a>
+                    <a href="{% url 'person_detail' person.id %}" class="btn" style="border-color: black">Detail</a>
                 </td>
             </tr>
         {% endfor %}
