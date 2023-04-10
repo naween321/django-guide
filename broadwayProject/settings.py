@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'myapp',
     'crud',
+    'account'
 
 ]
 
