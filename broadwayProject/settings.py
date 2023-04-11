@@ -105,3 +105,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # DATABASE_ROUTERS = ['routers.db_routers.AuthRouter']
+
+LOGIN_URL = 'login'
