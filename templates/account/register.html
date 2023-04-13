@@ -107,6 +107,10 @@
 				   		</div>
 					</form>
 				</div>
+            {{ debug }}
+            {{ request }}
+            {{ messages }}
+            {{ auth }}
                 {% for message in messages %}
                     <p>{{ message }}</p>
                 {% endfor %}
