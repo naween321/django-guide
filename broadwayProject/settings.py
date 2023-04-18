@@ -16,12 +16,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_extensions',
 ]
 
-CUSTOM_APPS = ['myapp', 'crud', 'account', 'classbased', ]
+CUSTOM_APPS = ['myapp', 'crud', 'account', 'classbased', 'api']
+THIRD_PARTY_APPS = ['django_extensions', 'rest_framework']
 
-INSTALLED_APPS += CUSTOM_APPS
+INSTALLED_APPS += THIRD_PARTY_APPS + CUSTOM_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -22,7 +22,8 @@ def register_user(request):
 
 
 def login_user(request):
-    if request.user.is_authenticated:
+    user = request.user
+    if user.is_authenticated:
         return redirect('home')
     if request.method == 'POST':
         un = request.POST.get('username')
