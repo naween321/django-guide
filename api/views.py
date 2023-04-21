@@ -7,9 +7,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, CreateAPIView, ListCreateAPIView, RetrieveAPIView, \
     RetrieveUpdateDestroyAPIView
+from rest_framework.viewsets import ModelViewSet
 
-from crud.models import Person
-from .serializers import PersonSerializer, PersonModelSerializer
+from crud.models import Person, ClassRoom, PersonProfile
+from .serializers import PersonSerializer, PersonModelSerializer, ClassRoomSerializer, PersonProfileSerializer
 
 
 def use_dummy_api(request):
@@ -123,6 +124,31 @@ class PersonRetrieveView(RetrieveAPIView):
 class PersonURDView(RetrieveUpdateDestroyAPIView):
     serializer_class = PersonModelSerializer
     queryset = Person.objects.all()
+
+
+class PersonModelViewSet(ModelViewSet):
+    # serializer_class = PersonModelSerializer
+    # queryset = Person.objects.filter(id=2)
+
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return Person.objects.all()
+        return Person.objects.filter(id=2)
+
+    def get_serializer_class(self):
+        if self.request.method.lower() == 'get':
+            return PersonModelSerializer
+        return PersonSerializer
+
+
+class ClassRoomModelViewSet(ModelViewSet):
+    serializer_class = ClassRoomSerializer
+    queryset = ClassRoom.objects.all()
+
+
+class PersonProfileModelViewSet(ModelViewSet):
+    queryset = PersonProfile.objects.all()
+    serializer_class = PersonProfileSerializer
 
 
 # 200 => Get request Successful
