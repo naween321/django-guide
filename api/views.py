@@ -98,6 +98,7 @@ class PersonModelSerializedView(APIView):
         serializer = PersonModelSerializer(person, many=True)
         return Response(serializer.data)
 
+
     def post(self, *args, **kwargs):
         serializer = PersonModelSerializer(data=self.request.data)
         if serializer.is_valid():
@@ -149,6 +150,25 @@ class ClassRoomModelViewSet(ModelViewSet):
 class PersonProfileModelViewSet(ModelViewSet):
     queryset = PersonProfile.objects.all()
     serializer_class = PersonProfileSerializer
+
+    # For ModelViewSet there are 6 hooks for every types of request. They are create, list, update,
+    # partial_update, retrieve and destroy. Create and list examples are given below:
+
+    def create(self, request, *args, **kwargs):
+        # send_mail()
+        return super().create(request, *args, **kwargs)
+
+    def list(self, request, *args, **kwargs):
+        name = request.query_params.get("name")
+        print(name)
+        return super().list(request, *args, **kwargs)
+
+    # This is how we send extra context to the serializer
+    # def get_serializer_context(self):
+    #     context = super().get_serializer_context()
+    #     context["for_display"] = True
+    #     return context
+
 
 
 # 200 => Get request Successful

@@ -23,9 +23,16 @@ class ClassRoomSerializer(serializers.ModelSerializer):
 
 
 class PersonProfileSerializer(serializers.ModelSerializer):
-    classroom = ClassRoomSerializer()
-    person = PersonSerializer()
+    # classroom = ClassRoomSerializer()
+    # person = PersonSerializer()
 
     class Meta:
         model = PersonProfile
         fields = ["id", "profile_picture", "bio", "address", "person", "classroom"]
+
+    def get_fields(self):
+        fields = super().get_fields()
+        request = self.context.get("request")
+        if request and request.method.lower() == "get":
+            fields["person"] = PersonSerializer()
+        return fields
