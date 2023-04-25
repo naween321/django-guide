@@ -18,7 +18,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-CUSTOM_APPS = ['myapp', 'crud', 'account', 'classbased', 'api']
+CUSTOM_APPS = ['myapp', 'crud', 'account', 'classbased', 'api', 'api_crud']
 THIRD_PARTY_APPS = ['django_extensions', 'rest_framework']
 
 INSTALLED_APPS += THIRD_PARTY_APPS + CUSTOM_APPS

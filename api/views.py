@@ -101,10 +101,13 @@ class PersonModelSerializedView(APIView):
 
     def post(self, *args, **kwargs):
         serializer = PersonModelSerializer(data=self.request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response({"msg": serializer.errors}, status=201)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+        # if serializer.is_valid():
+        #     serializer.save()
+        #     return Response(serializer.data)
+        # return Response({"msg": serializer.errors}, status=201)
 
 
 class PersonListView(ListAPIView):
@@ -168,8 +171,6 @@ class PersonProfileModelViewSet(ModelViewSet):
     #     context = super().get_serializer_context()
     #     context["for_display"] = True
     #     return context
-
-
 
 # 200 => Get request Successful
 # 201 => Post request Successful
