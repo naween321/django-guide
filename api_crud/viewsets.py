@@ -10,3 +10,21 @@ class ListCreateUpdateDestroyViewSet(
     GenericViewSet
 ):
     pass
+
+
+class CreateUpdateDestroyViewSet(
+    mixins.CreateModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+    GenericViewSet
+):
+    pass
+
+
+class ListUpdateDestroyViewSet(
+    mixins.ListModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+    GenericViewSet
+):
+    pass

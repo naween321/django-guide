@@ -35,3 +35,16 @@ class Person(UUIDModel):
 
     def __str__(self):
         return self.name
+
+
+class PersonProfile(UUIDModel):
+    person = models.OneToOneField(Person, on_delete=models.CASCADE,
+                                  related_name="person_profile")
+    profile_picture = models.FileField(upload_to="api_crud", null=True, blank=True)
+    address = models.CharField(max_length=50)
+
+
+from django.contrib.auth.models import User
+# User => group => ManyToMany
+# Group
+# UserGroup  => Through / Itermediate

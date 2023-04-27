@@ -19,7 +19,7 @@ INSTALLED_APPS = [
 ]
 
 CUSTOM_APPS = ['myapp', 'crud', 'account', 'classbased', 'api', 'api_crud']
-THIRD_PARTY_APPS = ['django_extensions', 'rest_framework']
+THIRD_PARTY_APPS = ['django_extensions', 'rest_framework', 'rest_framework.authtoken']
 
 INSTALLED_APPS += THIRD_PARTY_APPS + CUSTOM_APPS
 
@@ -102,3 +102,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # DATABASE_ROUTERS = ['routers.db_routers.AuthRouter']
 
 LOGIN_URL = 'login'
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication"
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated"
+    ]
+}
