@@ -19,7 +19,7 @@ INSTALLED_APPS = [
 ]
 
 CUSTOM_APPS = ['myapp', 'crud', 'account', 'classbased', 'api', 'api_crud']
-THIRD_PARTY_APPS = ['django_extensions', 'rest_framework', 'rest_framework.authtoken']
+THIRD_PARTY_APPS = ['django_extensions', 'rest_framework', 'rest_framework.authtoken', 'django_filters']
 
 INSTALLED_APPS += THIRD_PARTY_APPS + CUSTOM_APPS
 
@@ -110,5 +110,7 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated"
-    ]
+    ],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 10
 }

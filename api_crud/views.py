@@ -6,7 +6,10 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 # from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.filters import SearchFilter
 from rest_framework.permissions import AllowAny
+
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .viewsets import ListCreateUpdateDestroyViewSet, CreateUpdateDestroyViewSet, ListUpdateDestroyViewSet
 from .models import ClassRoom, Person, PersonProfile
@@ -22,7 +25,11 @@ List, Retrieve, Create, Update, Partial Update, Destroy => Actions (Django Speci
 class ClassRoomViewSet(ListCreateUpdateDestroyViewSet):
     lookup_field = "uuid"
     lookup_url_kwarg = "uuid"
+    filter_backends = [SearchFilter, DjangoFilterBackend]
+    search_fields = ['name', ]
+    filterset_fields = ["name", ]
     # serializer_class = ClassRoomSerializer
+    # pagination_class = LimitOffsetPagination
     queryset = ClassRoom.objects.all()
 
     def get_serializer_class(self):
@@ -42,8 +49,12 @@ class ClassRoomViewSet(ListCreateUpdateDestroyViewSet):
     @action(detail=True)
     def people(self, *args, **kwargs):
         classroom_obj = self.get_object()
-        person = Person.objects.filter(classroom=classroom_obj)
-        serializer = self.get_serializer(person, many=True)
+        queryset = Person.objects.filter(classroom=classroom_obj)
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+        serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
     # 127.0.0.1:8000/api/crud/classroom/{uuid}/person/
@@ -55,6 +66,7 @@ class PersonViewSet(ModelViewSet):
     # permission_classes = [IsAuthenticated, ]
     lookup_field = 'uuid'
     serializer_class = PersonSerializer
+    # pagination_class = LimitOffsetPagination
     queryset = Person.objects.all()
 
     def get_serializer_class(self):
@@ -92,6 +104,8 @@ class PersonProfileViewSet(CreateUpdateDestroyViewSet):
 
 class UserViewSet(ListUpdateDestroyViewSet):
     permission_classes = [AllowAny, ]
+    filter_backends = [SearchFilter, ]
+    search_fields = ["username", "email"]
     lookup_field = "username"
     lookup_url_kwarg = "username"
     serializer_class = UserSerializer
