@@ -65,9 +65,13 @@ class PersonViewSet(ModelViewSet):
     # authentication_classes = [TokenAuthentication, ]
     # permission_classes = [IsAuthenticated, ]
     lookup_field = 'uuid'
-    serializer_class = PersonSerializer
+    lookup_url_kwarg = 'uuid'
+    # serializer_class = PersonSerializer
     # pagination_class = LimitOffsetPagination
     queryset = Person.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
     def get_serializer_class(self):
         if self.action == 'profile':
@@ -83,7 +87,10 @@ class PersonViewSet(ModelViewSet):
             return Response({
                 "message": "Profile for this person doesn't exist"
             })
-        serializer = self.get_serializer(p_profile)
+        serializer = self.get_serializer(p_profile, fields=['uuid',
+                                                            'created_at', "updated_at",
+                                                            "profile_picture",
+                                                            "address"])
         return Response(serializer.data)
 
 

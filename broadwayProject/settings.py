@@ -19,7 +19,8 @@ INSTALLED_APPS = [
 ]
 
 CUSTOM_APPS = ['myapp', 'crud', 'account', 'classbased', 'api', 'api_crud']
-THIRD_PARTY_APPS = ['django_extensions', 'rest_framework', 'rest_framework.authtoken', 'django_filters']
+THIRD_PARTY_APPS = ['django_extensions', 'rest_framework',
+                    'rest_framework.authtoken', 'django_filters', 'rest_framework_swagger']
 
 INSTALLED_APPS += THIRD_PARTY_APPS + CUSTOM_APPS
 
@@ -103,14 +104,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'login'
 
-
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.TokenAuthentication"
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication"
+
     ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated"
     ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
-    "PAGE_SIZE": 10
+    "PAGE_SIZE": 10,
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
