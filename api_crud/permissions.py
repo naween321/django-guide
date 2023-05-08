@@ -30,7 +30,7 @@ class IsTutorUser(BasePermission):
 class IsStudentUser(BasePermission):
     # def has_permission(self, request, view):
     #     UserGroup = User.groups.through
-    #     return UserGroup.objects.filter(user=request.user, group__name="Student").exists()
+    # #    return UserGroup.objects.filter(user=request.user, group__name="Student").exists()
 
     def has_permission(self, request, view):
         user_groups = request.user.groups.all().values_list('name', flat=True)
